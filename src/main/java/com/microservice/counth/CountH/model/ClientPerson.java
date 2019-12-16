@@ -2,10 +2,15 @@ package com.microservice.counth.CountH.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import javax.validation.constraints.NotEmpty;
+
+
 @Document(collection="clientpersonn")
 public class ClientPerson {
 	
-	@Id 
+	@Id
+	@NotEmpty
 	private String Id;
 	
 	private String name;
@@ -13,6 +18,26 @@ public class ClientPerson {
 	private String lastname;
 	
 	private String dni;
+	
+	
+	
+	public ClientPerson() {
+		
+	}
+
+	public ClientPerson(String name) {
+		
+		this.name = name;
+	}
+		
+
+	public ClientPerson(String name, String lastname, String dni) {
+		this.name = name;
+		this.lastname = lastname;
+		this.dni = dni;
+	}
+
+
 
 	public String getId() {
 		return Id;
