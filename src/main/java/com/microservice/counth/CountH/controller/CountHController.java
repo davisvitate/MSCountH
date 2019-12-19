@@ -154,7 +154,7 @@ public class CountHController {
 		return titular.flatMap(titularp ->{
 			return service.saveTitular(titularp).map(c ->{
 				respuesta.put("titular", c);
-				respuesta.put("mensaje", "Clientperson creado con exito");
+				respuesta.put("mensaje", "Titular creado con exito");
 				return ResponseEntity
 						.created(URI.create("api/titular/".concat(c.getId())))
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -186,7 +186,7 @@ public class CountHController {
 		return firmante.flatMap(firmantep ->{
 			return service.saveFirmante(firmantep).map(c ->{
 				respuesta.put("titular", c);
-				respuesta.put("mensaje", "Clientperson creado con exito");
+				respuesta.put("mensaje", "Firmante creado con exito");
 				return ResponseEntity
 						.created(URI.create("api/firmante/".concat(c.getId())))
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
