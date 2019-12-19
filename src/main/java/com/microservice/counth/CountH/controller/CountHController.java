@@ -22,7 +22,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import com.microservice.counth.CountH.model.ClientPerson;
 import com.microservice.counth.CountH.model.CountH;
+import com.microservice.counth.CountH.model.Firmante;
+import com.microservice.counth.CountH.model.Titular;
 import com.microservice.counth.CountH.services.CountHServices;
 
 import lombok.Value;
@@ -35,6 +38,8 @@ public class CountHController {
 	
 	@Autowired
 	private CountHServices service;
+	
+	
 	
 	
 	//private String path;
@@ -106,6 +111,120 @@ public class CountHController {
 		return service.findById(id).flatMap(p ->{
 			return service.delete(p).then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
 		}).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+	}
+	
+	
+	@PostMapping
+	public Mono<ResponseEntity<Map<String, Object>>> crearclientperson(@Valid @RequestBody Mono<ClientPerson> clientperson){
+		
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		
+		return clientperson.flatMap(clientp ->{
+			return service.saveClientPerson(clientp).map(c ->{
+				respuesta.put("clientperson", c);
+				respuesta.put("mensaje", "Clientperson creado con exito");
+				return ResponseEntity
+						.created(URI.create("api/clientperson/".concat(c.getId())))
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(respuesta);
+			});
+		}).onErrorResume(t -> {
+			return Mono.just(t).cast(WebExchangeBindException.class)
+					.flatMap(e -> Mono.just(e.getFieldErrors()))
+					.flatMapMany(Flux::fromIterable)
+					.map(fieldError -> "El campo "+fieldError.getField() + " " + fieldError.getDefaultMessage())
+					.collectList()
+					.flatMap(list -> {
+						respuesta.put("errors", list);						
+						respuesta.put("status", HttpStatus.BAD_REQUEST.value());
+						return Mono.just(ResponseEntity.badRequest().body(respuesta));
+					});
+							
+		});
+		
+
+	}
+	
+	
+	@PostMapping
+	public Mono<ResponseEntity<Map<String, Object>>> crearTitular(@Valid @RequestBody Mono<Titular> titular){
+		
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		
+		return titular.flatMap(titularp ->{
+			return service.saveTitular(titularp).map(c ->{
+				respuesta.put("titular", c);
+				respuesta.put("mensaje", "Clientperson creado con exito");
+				return ResponseEntity
+						.created(URI.create("api/titular/".concat(c.getId())))
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(respuesta);
+			});
+		}).onErrorResume(t -> {
+			return Mono.just(t).cast(WebExchangeBindException.class)
+					.flatMap(e -> Mono.just(e.getFieldErrors()))
+					.flatMapMany(Flux::fromIterable)
+					.map(fieldError -> "El campo "+fieldError.getField() + " " + fieldError.getDefaultMessage())
+					.collectList()
+					.flatMap(list -> {
+						respuesta.put("errors", list);						
+						respuesta.put("status", HttpStatus.BAD_REQUEST.value());
+						return Mono.just(ResponseEntity.badRequest().body(respuesta));
+					});
+							
+		});
+		
+
+	}
+	
+	
+	@PostMapping
+	public Mono<ResponseEntity<Map<String, Object>>> crearFirmante(@Valid @RequestBody Mono<Firmante> firmante){
+		
+		Map<String, Object> respuesta = new HashMap<String, Object>();
+		
+		return firmante.flatMap(firmantep ->{
+			return service.saveFirmante(firmantep).map(c ->{
+				respuesta.put("titular", c);
+				respuesta.put("mensaje", "Clientperson creado con exito");
+				return ResponseEntity
+						.created(URI.create("api/firmante/".concat(c.getId())))
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.body(respuesta);
+			});
+		}).onErrorResume(t -> {
+			return Mono.just(t).cast(WebExchangeBindException.class)
+					.flatMap(e -> Mono.just(e.getFieldErrors()))
+					.flatMapMany(Flux::fromIterable)
+					.map(fieldError -> "El campo "+fieldError.getField() + " " + fieldError.getDefaultMessage())
+					.collectList()
+					.flatMap(list -> {
+						respuesta.put("errors", list);						
+						respuesta.put("status", HttpStatus.BAD_REQUEST.value());
+						return Mono.just(ResponseEntity.badRequest().body(respuesta));
+					});
+							
+		});
+		
+
+	}
+	
+	@GetMapping("/listatitular")
+	public Mono<ResponseEntity<Flux<Titular>>> listaTitular(){
+		return Mono.just(
+				ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.body(service.findAllTitular())
+				);
+	}
+	
+	@GetMapping("/listafirmante")
+	public Mono<ResponseEntity<Flux<Firmante>>> listaFirmante(){
+		return Mono.just(
+				ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.body(service.findAllFirmante())
+				);
 	}
 
 
