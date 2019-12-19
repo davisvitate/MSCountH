@@ -3,6 +3,8 @@ package com.microservice.counth.CountH.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +25,10 @@ public class CountH {
 		@Valid
 		@NotNull
 		private ClientPerson clientperson;
+		
+		private List<Titular> titulares;
+		
+		private List<Firmante> firmante;
 		
 
 		public CountH() {}
@@ -76,5 +82,22 @@ public class CountH {
 		public void setClientperson(ClientPerson clientperson) {
 			this.clientperson = clientperson;
 		}
+
+		public List<Titular> getTitulares() {
+			return titulares;
+		}
+
+		public void setTitulares(List<Titular> titulares) {
+			this.titulares = titulares;
+		}
+
+		public List<Firmante> getFirmante() {
+			return firmante;
+		}
+
+		public void setFirmante(List<Firmante> firmante) {
+			this.firmante = firmante;
+		}
+		
 		
 }

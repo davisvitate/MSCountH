@@ -15,22 +15,24 @@ import com.microservice.counth.CountH.services.CountHServices;
 import reactor.core.publisher.Flux;
 
 @SpringBootApplication
-public class CountHApplication implements CommandLineRunner{
+public class CountHApplication 
+//implements CommandLineRunner
+{
 	
-	@Autowired
-	private CountHServices service;
+	//@Autowired
+//	private CountHServices service;
 	
-	@Autowired
-	private ReactiveMongoTemplate mongoTemplate;
+	//@Autowired
+	//private ReactiveMongoTemplate mongoTemplate;
 	
-	private static final Logger log = LoggerFactory.getLogger(CountHApplication.class);
+	//private static final Logger log = LoggerFactory.getLogger(CountHApplication.class);
 	
 	
 
 	public static void main(String[] args) {
 		SpringApplication.run(CountHApplication.class, args);
 	}
-	
+	/*
 	@Override
 	public void run(String... args) throws Exception {
 		mongoTemplate.dropCollection("counth").subscribe();
@@ -56,5 +58,5 @@ public class CountHApplication implements CommandLineRunner{
 		.subscribe(counth -> log.info("Insert: " + counth.getId() + " " + counth.getNum()));
 		
 	}
-
+*/
 }

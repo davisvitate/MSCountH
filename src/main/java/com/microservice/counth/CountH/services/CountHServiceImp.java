@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 
 import com.microservice.counth.CountH.model.ClientPerson;
 import com.microservice.counth.CountH.model.CountH;
+import com.microservice.counth.CountH.model.Firmante;
+import com.microservice.counth.CountH.model.Titular;
 import com.microservice.counth.CountH.repository.ClientPersonRepository;
 import com.microservice.counth.CountH.repository.CountHRepository;
+import com.microservice.counth.CountH.repository.FirmanteRepository;
+import com.microservice.counth.CountH.repository.TitularRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,6 +22,14 @@ public class CountHServiceImp implements CountHServices {
 	
 	@Autowired
 	private ClientPersonRepository clientrerepository;
+	
+	@Autowired 
+	private TitularRepository titularrepo;
+	
+	@Autowired
+	private FirmanteRepository firmarepo;
+	
+	
 
 	@Override
 	public Flux<CountH> findAll() {
@@ -60,6 +72,54 @@ public class CountHServiceImp implements CountHServices {
 	public Mono<ClientPerson> saveClientPerson(ClientPerson clientperson) {
 		
 		return clientrerepository.save(clientperson);
+	}
+
+	@Override
+	public Flux<Titular> findAllTitular() {
+		// TODO Auto-generated method stub
+		return titularrepo.findAll();
+	}
+
+	@Override
+	public Mono<Titular> findByIdTitular(String id) {
+		// TODO Auto-generated method stub
+		return titularrepo.findById(id);
+	}
+
+	@Override
+	public Mono<Titular> saveTitular(Titular titular) {
+		// TODO Auto-generated method stub
+		return titularrepo.save(titular);
+	}
+
+	@Override
+	public Mono<Void> deleteTitular(Titular titular) {
+		// TODO Auto-generated method stub
+		return titularrepo.delete(titular);
+	}
+
+	@Override
+	public Flux<Firmante> findAllFirmante() {
+		// TODO Auto-generated method stub
+		return firmarepo.findAll();
+	}
+
+	@Override
+	public Mono<Firmante> findByIdFirmante(String id) {
+		// TODO Auto-generated method stub
+		return firmarepo.findById(id);
+	}
+
+	@Override
+	public Mono<Firmante> saveFirmante(Firmante firmante) {
+		// TODO Auto-generated method stub
+		return firmarepo.save(firmante);
+	}
+
+	@Override
+	public Mono<Void> deleteFirmante(Firmante firmante) {
+		// TODO Auto-generated method stub
+		return firmarepo.delete(firmante);
 	}
 
 }

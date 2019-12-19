@@ -1,5 +1,6 @@
 package com.microservice.counth.CountH.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,6 +98,14 @@ public class CountHController {
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.body(c))
 		.defaultIfEmpty(ResponseEntity.notFound().build());
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public Mono<ResponseEntity<Void>> eliminar(@PathVariable String id){
+		return service.findById(id).flatMap(p ->{
+			return service.delete(p).then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
+		}).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
 	}
 
 
