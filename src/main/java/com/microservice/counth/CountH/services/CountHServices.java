@@ -4,6 +4,7 @@ package com.microservice.counth.CountH.services;
 import com.microservice.counth.CountH.model.ClientPerson;
 import com.microservice.counth.CountH.model.CountH;
 import com.microservice.counth.CountH.model.Firmante;
+import com.microservice.counth.CountH.model.Movement;
 import com.microservice.counth.CountH.model.Titular;
 
 import reactor.core.publisher.Flux;
@@ -40,6 +41,14 @@ public Flux<Firmante> findAllFirmante();
 	public Mono<Firmante> saveFirmante(Firmante firmante);
 	
 	public Mono<Void> deleteFirmante(Firmante firmante);
+	
+public Flux<Movement> findAllMove(); 
+	
+	public Mono<Movement> findByIdMove(String id);
+	
+	public Mono<Movement> saveMove(Movement move);
+	
+	public Mono<Void> deleteMove(Movement move);
 
 
 	

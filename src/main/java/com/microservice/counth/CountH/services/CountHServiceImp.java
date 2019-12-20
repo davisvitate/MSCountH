@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import com.microservice.counth.CountH.model.ClientPerson;
 import com.microservice.counth.CountH.model.CountH;
 import com.microservice.counth.CountH.model.Firmante;
+import com.microservice.counth.CountH.model.Movement;
 import com.microservice.counth.CountH.model.Titular;
 import com.microservice.counth.CountH.repository.ClientPersonRepository;
 import com.microservice.counth.CountH.repository.CountHRepository;
 import com.microservice.counth.CountH.repository.FirmanteRepository;
+import com.microservice.counth.CountH.repository.MoveRepository;
 import com.microservice.counth.CountH.repository.TitularRepository;
 
 import reactor.core.publisher.Flux;
@@ -28,6 +30,8 @@ public class CountHServiceImp implements CountHServices {
 	
 	@Autowired
 	private FirmanteRepository firmarepo;
+	
+	private MoveRepository moverepo;
 	
 	
 
@@ -120,6 +124,30 @@ public class CountHServiceImp implements CountHServices {
 	public Mono<Void> deleteFirmante(Firmante firmante) {
 		// TODO Auto-generated method stub
 		return firmarepo.delete(firmante);
+	}
+
+	@Override
+	public Flux<Movement> findAllMove() {
+		// TODO Auto-generated method stub
+		return moverepo.findAll();
+	}
+
+	@Override
+	public Mono<Movement> findByIdMove(String id) {
+		// TODO Auto-generated method stub
+		return moverepo.findById(id);
+	}
+
+	@Override
+	public Mono<Movement> saveMove(Movement move) {
+		// TODO Auto-generated method stub
+		return moverepo.save(move);
+	}
+
+	@Override
+	public Mono<Void> deleteMove(Movement move) {
+		// TODO Auto-generated method stub
+		return moverepo.delete(move);
 	}
 
 }
