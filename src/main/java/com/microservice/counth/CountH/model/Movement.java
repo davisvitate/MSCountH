@@ -8,21 +8,21 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Document(collection="dbmovement")
+@Document(collection = "dbmovement")
 public class Movement {
-	
+
 	@Id
 	private String id;
-	
+
 	@NotNull
 	private double saldo;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private  Date date;
-	
+	private Date date;
+
 	@NotNull
-	private String  description;
-	
+	private String description;
+
 	@NotNull
 	private ClientPerson client;
 
@@ -65,8 +65,5 @@ public class Movement {
 	public void setClient(ClientPerson client) {
 		this.client = client;
 	}
-	
-	
-	
 
 }
