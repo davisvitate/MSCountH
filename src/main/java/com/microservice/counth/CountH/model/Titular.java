@@ -13,13 +13,13 @@ public class Titular {
 	@Id
 	private String id;
 	
-	@NotNull
+	
 	private String name;
 	
-	@NotNull
+	
 	private Double lastname;
 	
-	@NotNull
+	
 	private String dni;
 
 	public String getId() {

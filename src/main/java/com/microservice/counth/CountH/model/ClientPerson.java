@@ -3,14 +3,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-import javax.validation.constraints.NotEmpty;
+
 
 
 @Document(collection="clientpersonn")
 public class ClientPerson {
 	
 	@Id
-	@NotEmpty
 	private String Id;
 	
 	private String name;

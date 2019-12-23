@@ -11,13 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 	@Id
 	private String id;
 	
-	@NotNull
+	
 	private String name;
 	
-	@NotNull
+	
 	private Double lastname;
 	
-	@NotNull
+	
 	private String dni;
 
 	public String getId() {
